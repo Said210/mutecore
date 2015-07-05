@@ -15,14 +15,27 @@ class Req
 		@post_parameters = args
 	end
 
+
+								#POST REQUEST
+								# query = {"user_id" => 5, "post_id" => 6}
+								# r = Req.new("http://192.168.0.4:3000/p/fav", "POST")
+								# r.parameters(query)
+
 	def do_request
 		uri = URI(@url)
 		if @method == 0
-			res = Net::HTTP.get_response(uri) 
-			return JSON.parse(res.body)
+			res = Net::HTTP.get_response(uri)
 		else
 			res = Net::HTTP.post_form(uri, @post_parameters)
+		end
+
+		begin
 			return JSON.parse(res.body)
+		rescue
+			return res.body
 		end
 	end
+
+
+	
 end

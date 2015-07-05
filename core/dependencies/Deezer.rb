@@ -1,12 +1,29 @@
 require_relative "../helpers/req.rb"
 class Deezer
-	r = Req.new("http://api.deezer.com/artist/1", "GET")
-	for i in 1..10
-		r.update_url("http://api.deezer.com/artist/" + i.to_s)
-		puts r.do_request["name"]
-		r.update_url("http://api.deezer.com/artist/" + i.to_s + "/albums")
-		for j in 0..r.do_request["data"].count - 1
-			puts "-- " + r.do_request["data"][j]["title"]
-		end
+
+	def get_artist(id)
+		r = Req.new("", "GET")
+		r.update_url "http://api.deezer.com/artist/" + id.to_s
+		return r.do_request
 	end
+
+	def get_artist_albums(id)
+		r = Req.new("", "GET")
+		r.update_url "http://api.deezer.com/artist/" + id.to_s + "/albums"
+		a = r.do_request["data"]
+		return a
+	end
+
+	def get_album(id)
+		r = Req.new("", "GET")
+		r.update_url "http://api.deezer.com/album/" + id.to_s
+		return r.do_request
+	end
+
+	def get_genre(id) # 1..232
+		r = Req.new("", "GET")
+		r.update_url "http://api.deezer.com/genre/" + id.to_s
+		return r.do_request
+	end
+
 end
