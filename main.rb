@@ -8,6 +8,9 @@ d = Deezer.new
 # 		puts "[#{a[j]['id']}]- " + a[j]["title"]
 # 	end
 # end
+puts "Thing to search"
+q = gets
 
+puts d.search("", q)[0].to_s
 
-puts d.get_album(8110800)
+#puts d.get_album(8110800)
